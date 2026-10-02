@@ -1,0 +1,963 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --red: #a63424;
+    --orange: #e8730c;
+    --bg: #f2f2f2;
+    --navy: #1c2b5e;
+}
+
+/* ============================================================
+   ขนาดตัวอักษรหลักปรับตามความกว้างจอ (14px -> 22px)
+   ทุกอย่างในไฟล์นี้ใช้หน่วย rem จึงขยาย/หดตามกันทั้งหน้า
+   ============================================================ */
+html {
+    font-size: clamp(14px, 0.5vw + 10px, 22px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Prompt', sans-serif;
+    background: var(--bg);
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+img { max-width: 100%; }
+
+a { text-decoration: none; }
+
+/* ================= HEADER ================= */
+header {
+    position: relative;
+    height: 4.6rem;
+    flex-shrink: 0;
+    background: #fff;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2rem;
+    background: var(--red);
+}
+
+.logo {
+    position: absolute;
+    left: 1.75rem; top: 0.5rem;
+    width: 3.8rem; height: 3.8rem;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #fff;
+    z-index: 2;
+}
+
+.head {
+    position: absolute;
+    left: 6.4rem; top: 0;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #fff;
+    z-index: 1;
+}
+
+.second-head {
+    position: absolute;
+    left: 6.4rem; top: 2.1rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.second-head h2 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #111;
+}
+
+.ui {
+    position: absolute;
+    right: 1.9rem; top: 2.1rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    z-index: 1;
+}
+
+.ui a {
+    font-size: 0.75rem;
+    color: #444;
+    line-height: 1.2;
+}
+
+.ui a.active {
+    color: var(--orange);
+    font-weight: 600;
+    padding-bottom: 0.2rem;
+    border-bottom: 1.5px solid var(--orange);
+}
+
+.ui a.btn-login {
+    width: 5.6rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    text-align: center;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 0.3rem;
+}
+
+/* ================= HERO (หน้าแรก) ================= */
+.hero {
+    flex: 1;
+    width: 100%;
+    max-width: 66rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 24rem);
+    gap: 3rem;
+    align-content: center;
+    align-items: center;
+    min-height: 22rem;
+    padding: 2rem;
+}
+
+.intro {
+    display: inline-block;
+    position: relative;
+    line-height: 1.7rem;
+    padding: 0 1.6rem 0 2.1rem;
+    border: 1px solid var(--red);
+    border-radius: 1rem;
+    background: #fff;
+    font-size: 0.75rem;
+    margin-bottom: 1.2rem;
+}
+
+.intro::before {
+    content: "";
+    position: absolute;
+    left: 0.6rem; top: 50%;
+    width: 0.5rem; height: 0.5rem;
+    border-radius: 50%;
+    background: var(--red);
+    transform: translateY(-50%);
+}
+
+.hero-text h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.7rem;
+    color: #111;
+}
+
+.hero-text h1 span { color: var(--red); }
+
+.desc {
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.8rem;
+}
+
+.btn-apply {
+    display: inline-block;
+    width: 6.6rem;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 0.35rem;
+}
+
+.hero-img img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 356 / 213;
+    object-fit: cover;
+    border: 2px solid var(--red);
+    border-radius: 0.5rem;
+    background: #ccc;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.3rem;
+    margin-top: 0.7rem;
+}
+
+.dots span {
+    width: 0.4rem; height: 0.4rem;
+    border-radius: 50%;
+    background: #d3a29b;
+}
+
+.dots span.on { background: var(--red); }
+
+/* ================= FOOTER ================= */
+/* 3 คอลัมน์: ซ้าย (กว้างสุด) / กลาง / ขวา */
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    column-gap: 1.5rem;
+    min-height: 6.8rem;
+    padding: 1rem 2.5rem;
+    background: var(--red);
+    color: #fff;
+}
+
+footer h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+
+footer p {
+    font-size: 0.68rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #f3cdc6;
+}
+
+/* ซ้าย */
+.footerleft { position: relative; padding-left: 2.9rem; }
+
+.footerleft::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0;
+    width: 2.1rem; height: 2.1rem;
+    border-radius: 50%;
+    background-color: var(--orange);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 58%;
+}
+
+.footerleft h4 {
+    font-size: 1rem;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.footerleft .sub {
+    font-size: 0.62rem;
+    line-height: 1.3;
+    margin-bottom: 0.7rem;
+}
+
+.footerleft .addr { margin-left: -2.9rem; }
+
+.footerleft .contact {
+    display: block;
+    margin-top: 0.3rem;
+}
+
+/* กลาง */
+.footercenter p {
+    font-size: 0.72rem;
+    line-height: 1.75;
+    color: #f3cdc6;
+    font-weight: 300;
+
+    a{
+        color: white;
+    }
+}
+
+/* ขวา */
+.footerright p { line-height: 1.6; }
+
+.social {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+}
+
+.social a {
+    display: block;
+    cursor: pointer;
+    transition: filter 0.15s;
+    width: 1.7rem; height: 1.7rem;
+    border-radius: 50%;
+    background-color: var(--navy);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 52%;
+}
+.social a:hover { filter: brightness(1.5); }
+.social a:nth-child(1) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'/%3E%3C/svg%3E"); }
+.social a:nth-child(2) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z'/%3E%3C/svg%3E"); }
+.social a:nth-child(3) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z'/%3E%3Cpolygon points='9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02'/%3E%3C/svg%3E"); }
+
+/* ================= login ================= */
+.Login {
+    flex: 1;
+    width: min(60rem, calc(100% - 2rem));
+    margin: 1rem auto;
+    padding: 1rem 0 2rem;
+    text-align: center;
+    border-radius: 1.2rem;
+    background: #fff;
+}
+
+.Login #main {
+    margin-top: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #111;
+}
+.Login #sub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 2.5rem;
+}
+.Login label {
+    text-align: left;
+    display: flex;
+    margin-left: 20%;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111;
+}
+.Login label[for="remember"] {
+    display: inline;
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+.Login label[for="forgot"] {
+    display: inline;
+    color: #a63424;
+    margin-left: 50%;
+    text-decoration: none;
+}
+.Login input[type=text],
+.Login input[type=password] {
+    margin-bottom: 0.7rem;
+    padding: 0.4rem 0.7rem;
+    width: 60%;
+    height: 3.2rem;
+    border-radius: 0.7rem;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+.Login .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-left: 20%;
+    margin-top: 0.6rem;
+    margin-bottom: 0.7rem;
+}
+.Login .checkbox { margin-right: 0.3rem; }
+
+.Login .Newuser,
+.Login .summit-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    margin-left: 20%;
+    height: 3.2rem;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.Login .Newuser {
+    margin-bottom: 1.5rem;
+    color: #111;
+}
+.Login .summit-login {
+    margin-bottom: 0.9rem;
+    background: #a63424;
+    color: #fff;
+    font-family: inherit;
+    cursor: pointer;
+}
+.Login .summit-login:hover { background: #8a2a1c; }
+
+/* ================= register ================= */
+.register {
+    flex: 1;
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3.5rem;
+    align-items: center;
+    padding: 2.5rem 3rem;
+}
+
+.register .reg-text { text-align: right; }
+
+.register .reg-text h2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #111;
+}
+
+.register .reg-text h2::after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: #bbb;
+    margin: 1.1rem 0;
+}
+
+.register .reg-text p {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: #666;
+}
+
+/* ฝั่งขวา: การ์ดขาว */
+.reg-card {
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 2.2rem 2.5rem;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* label ซ้าย / ช่องกรอกขวา */
+.row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 0.9rem 1.1rem;
+    align-items: center;
+}
+
+.row label {
+    text-align: right;
+    font-size: 0.82rem;
+    color: #555;
+}
+
+.reg-card input {
+    width: 100%;
+    height: 2.8rem;
+    padding: 0 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    color: #222;
+}
+
+.reg-card input::placeholder { color: #aaa; }
+
+.reg-card input:focus {
+    outline: none;
+    border-color: #a63424;
+    box-shadow: 0 0 0 3px rgba(166, 52, 36, 0.12);
+}
+
+.btn-submit {
+    display: block;
+    width: 70%;
+    height: 3rem;
+    margin: 1.6rem auto 0;
+    border: none;
+    border-radius: 999px;
+    background: #a63424;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-submit:hover { background: #8a2a1c; }
+
+/* ================= admission 1 ================= */
+
+/* การ์ดขาวตรงกลางหน้า */
+.admission {
+    width: min(58rem, calc(100% - 2rem));
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 2.75rem 4rem;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* หัวข้อ + เส้นคั่นใต้คำอธิบาย */
+.admission .reg-text {
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 0.9rem;
+    margin-bottom: 1.6rem;
+}
+.admission .reg-text h2 { font-size: 1.3rem; font-weight: 600; color: #111; margin-bottom: 0.15rem; }
+.admission .reg-text p  { font-size: 0.8rem; color: #666; }
+
+/* ฟอร์ม 2 คอลัมน์ */
+.admission1form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem 1.5rem;
+}
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 0.4rem;
+}
+
+/* ช่องกรอก / ช่องเลือก */
+.admission input[type=text],
+.admission input[type=number],
+.admission select {
+    width: 100%;
+    height: 2.75rem;
+    padding: 0 0.9rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    background: #fff;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+.admission input:focus,
+.admission select:focus {
+    outline: none;
+    border-color: #a63424;
+    box-shadow: 0 0 0 3px rgba(166, 52, 36, 0.12);
+}
+
+/* ลูกศรช่องเลือก */
+.admission select {
+    appearance: none;
+    cursor: pointer;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23555' stroke-width='1.6'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 0.9rem center;
+}
+
+/* แถวปุ่มล่าง: ย้อนกลับ ซ้าย / ถัดไป ขวา */
+.admission .sumit {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.4rem;
+}
+
+/* ปุ่มทั้งสองใช้ทรงเดียวกัน */
+.admission .summit-login,
+.admission .Newuser {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.4rem;
+    padding: 0 1.5rem;
+    border-radius: 0.4rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* "ย้อนกลับ" = ปุ่มขาวขอบเทา */
+.admission .summit-login {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+.admission .summit-login:hover { border-color: #a63424; color: #a63424; }
+
+/* "ขั้นตอนถัดไป" / "ยื่นใบสมัคร" = ปุ่มแดง */
+.admission .Newuser {
+    background: #a63424;
+    color: #fff;
+    border: 1px solid #a63424;
+}
+.admission .Newuser:hover { background: #8a2a1c; }
+
+/* ================= admission 2 (ส่งเอกสาร) ================= */
+.admission-docs .reg-text {
+    text-align: center;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.admission-docs .reg-text h2 { font-size: 1.45rem; font-weight: 600; }
+
+.admission-docs .doc-form {
+    max-width: 34rem;
+    margin: 0 auto;
+}
+
+.doc-list {
+    list-style: none;
+    margin-top: 1.7rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid #e6e6e6;
+}
+
+.doc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0.25rem;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.doc-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #111;
+}
+
+.btn-attach {
+    flex-shrink: 0;
+    max-width: 11rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.35rem 0.9rem;
+    border-radius: 0.3rem;
+    background: var(--orange);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+.btn-attach:hover { background: #cf6409; }
+
+/* แจ้งเตือนเมื่อยังไม่แนบเอกสารครบ */
+.doc-error {
+    display: none;
+    margin-top: 0.9rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #c0392b;
+}
+.doc-error.show { display: block; }
+.doc-item.missing .doc-name { color: #c0392b; }
+.doc-item.missing .btn-attach { background: #c0392b; }
+
+/* ================= หน้า ตรวจสอบสถานะ ================= */
+.status-page {
+    flex: 1;
+    width: min(54rem, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 2.25rem 0 2.5rem;
+}
+
+.status-title {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+.status-title h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111;
+}
+.status-title p {
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+/* การ์ดขาว */
+.status-page .card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 0.9rem;
+    padding: 1.25rem 1.3rem 1.1rem;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
+}
+
+.applicant h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111;
+}
+.applicant p {
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.card-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 1.1rem;
+}
+
+/* ---------- ขั้นตอน (stepper) ---------- */
+.stepper {
+    display: flex;
+    align-items: center;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-shrink: 0;
+}
+
+.step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.step-text b {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+.step-text small {
+    display: block;
+    font-size: 0.64rem;
+    line-height: 1.3;
+}
+
+/* เสร็จแล้ว */
+.step.done .step-icon { background: #10b981; }
+.step.done b { color: #111; }
+.step.done small { color: #9aa0ad; }
+
+/* กำลังดำเนินการ */
+.step.doing .step-icon { background: var(--orange); }
+.step.doing .step-icon::after {
+    content: "";
+    width: 0.4rem; height: 0.4rem;
+    border-radius: 50%;
+    background: #fff;
+}
+.step.doing b,
+.step.doing small { color: var(--orange); }
+
+/* รอดำเนินการ */
+.step.wait .step-icon { background: #eceef3; }
+.step.wait .step-icon::after {
+    content: "";
+    width: 0.4rem; height: 0.4rem;
+    border-radius: 50%;
+    background: #9aa0ad;
+}
+.step.wait b,
+.step.wait small { color: #9aa0ad; }
+
+/* เส้นเชื่อม */
+.step-line {
+    flex: 1;
+    height: 1.5px;
+    margin: 0 0.7rem;
+    background: #e3e5ea;
+}
+.step-line.on { background: #10b981; }
+
+/* ---------- รายการเอกสาร ---------- */
+.check-list { list-style: none; }
+
+.check-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #eee;
+}
+.check-item:last-child { border-bottom: none; }
+
+.check-name {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #111;
+}
+.check-status {
+    font-size: 0.68rem;
+    color: #9aa0ad;
+}
+
+.btn-view {
+    padding: 0.3rem 0.85rem;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+    background: #fff;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #222;
+    cursor: pointer;
+}
+.btn-view:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ---------- แท็บเล็ต / จอเล็ก ---------- */
+@media (max-width: 900px) {
+    .register {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.75rem 1.25rem;
+    }
+    .register .reg-text { text-align: center; }
+    .register .reg-text h2 { font-size: 1.9rem; }
+    .register .reg-text h2::after { margin: 0.8rem auto; width: 40%; }
+
+    .admission { padding: 2rem 2rem; }
+}
+
+/* ---------- จอเล็กมาก (มือถือแนวตั้ง / จอแคบ) ---------- */
+@media (max-width: 760px) {
+    /* header: ย้ายจากตำแหน่งแบบ absolute เป็นเรียงต่อกัน */
+    header {
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.4rem 0.8rem;
+        padding: 0 1rem 0.7rem;
+    }
+    header::before { height: 2rem; }
+
+    .head {
+        order: 0;
+        position: relative;
+        left: auto; top: auto;
+        flex: 0 0 calc(100% + 2rem);
+        margin: 0 -1rem;
+        padding: 0 1rem;
+        font-size: 0.7rem;
+    }
+    .logo {
+        order: 1;
+        position: static;
+        width: 2.8rem; height: 2.8rem;
+        margin-top: 0.5rem;
+    }
+    .second-head {
+        order: 2;
+        position: static;
+        height: auto;
+        flex: 1;
+        margin-top: 0.5rem;
+    }
+    .second-head h2 { font-size: 0.78rem; }
+    .ui {
+        order: 3;
+        position: static;
+        flex: 0 0 100%;
+        height: auto;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 0.5rem 1rem;
+    }
+    .ui a { font-size: 0.78rem; }
+
+    /* หน้าแรก */
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.75rem 1.25rem;
+        align-content: start;
+    }
+    .hero-text h1 { font-size: 1.6rem; }
+
+    /* footer เรียง 1 คอลัมน์ */
+    footer {
+        grid-template-columns: 1fr;
+        row-gap: 1.1rem;
+        padding: 1.25rem;
+    }
+
+    /* login */
+    .Login { padding-bottom: 1.5rem; }
+    .Login #main { font-size: 1.6rem; margin-top: 1.5rem; }
+    .Login label,
+    .Login .checkbox-container,
+    .Login .Newuser,
+    .Login .summit-login { margin-left: 8%; }
+    .Login input[type=text],
+    .Login input[type=password],
+    .Login .Newuser,
+    .Login .summit-login { width: 84%; }
+    .Login label[for="remember"] { margin-left: 0.3rem; }
+    .Login label[for="forgot"] { margin-left: 25%; }
+
+    /* register */
+    .reg-card { padding: 1.5rem 1.25rem; }
+    .row { grid-template-columns: 1fr; gap: 0.35rem; }
+    .row label { text-align: left; margin-top: 0.5rem; }
+    .btn-submit { width: 100%; }
+
+    /* admission 1 / 2 */
+    .admission { padding: 1.5rem 1.25rem; margin: 1rem auto; }
+    .admission1form { grid-template-columns: 1fr; }
+
+    /* status: ขั้นตอนเรียงลงแนวตั้ง */
+    .stepper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .step-line {
+        flex: none;
+        width: 1.5px;
+        height: 1rem;
+        margin: 0.3rem 0 0.3rem 0.7rem;
+    }
+
+    .check-item { grid-template-columns: 1fr auto; row-gap: 0.15rem; }
+    .check-name { grid-column: 1; }
+    .check-status { grid-column: 1; grid-row: 2; }
+    .btn-view { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+/* ---------- จอเล็กสุด ---------- */
+@media (max-width: 420px) {
+    .admission .sumit { flex-direction: column-reverse; }
+    .admission .summit-login,
+    .admission .Newuser { width: 100%; }
+    .doc-item { flex-wrap: wrap; }
+}
