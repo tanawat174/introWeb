@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>ตรวจสอบสถานะ</title>
+</head>
+<body>
+    <header>
+        <img class="logo" src="image/logo_kmutnb.png" alt="Logo">
+        <h1 class="head">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</h1>
+        <div class="second-head">
+            <h2>ระบบรับสมัครนักศึกษาใหม่ <br>KMUTNB ADMISSION SYSTEM</h2>
+        </div>
+        <div class="ui">
+            <a href="index.html">หน้าแรก</a>
+            <a href="terms.html">สมัครเรียน</a>
+            <a href="status.html" class="active">ตรวจสอบสถานะ</a>
+            <a href="result.html">ประกาศผล</a>
+            <a href="login.html" class="btn-login">เข้าสู่ระบบ</a>
+        </div>
+    </header>
+
+    <main class="status-page">
+        <div class="status-title">
+            <h2>ตรวจสอบสถานะการสมัคร</h2>
+            <p>อัปเดตความคืบหน้าของการส่งเอกสาร การชำระเงิน และขั้นตอนการคัดเลือก</p>
+        </div>
+        <div id="statusRoot"></div>
+    </main>
+
+    <footer>
+        <div class="footerleft">
+            <h4>KMUTNB</h4>
+            <p class="sub">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</p>
+            <p class="addr">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ<br>
+                1518 ถนนประชาราษฎร์ 1 แขวงวงศ์สว่าง เขตบางซื่อ<br>
+                กรุงเทพฯ 10800
+                <span class="contact">โทรศัพท์: +66 2 555-2000 | อีเมล: contact@op.kmutnb.ac.th</span>
+            </p>
+        </div>
+
+        <div class="footercenter">
+            <h4>ลิงก์ภายนอก </h4>
+            <p><a href="https://www.kmutnb.ac.th/life-in-the-university/prachinburi.aspx">เว็บไซต์มหาวิทยาลัย</a><br>
+                <a href="https://ita.kmutnb.ac.th/ita-contact/qanda.php">ถาม-ตอบ (Q&A)</a><br>
+                <a href="https://kmutnb.ac.th/about/clue-reporting.aspx">ร้องเรียนทุจริตและประพฤติมิชอบ</a><br>
+                <a href="https://kmutnb.ac.th/contact-us.aspx">แผนที่</a></p>
+        </div>
+
+        <div class="footerright">
+            <h4>ติดต่อกองอำนวยการรับสมัคร</h4>
+            <p>สอบถามข้อมูลเพิ่มเติมเกี่ยวกับการรับสมัคร<br>
+                และส่งเอกสารได้ในวันและเวลาราชการ</p>
+            <div class="social">
+                <a href="https://www.facebook.com/KMUTNB.Official/" target="_blank" rel="noopener" aria-label="Facebook"></a>
+                <a href="https://x.com/KMUTNBofficial" target="_blank" rel="noopener" aria-label="Twitter"></a>
+                <a href="https://www.youtube.com/c/KMUTNBofficial" target="_blank" rel="noopener" aria-label="YouTube"></a>
+            </div>
+        </div>
+    </footer>
+    <script src="js/qrcode.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+    (function () {
+        var root = document.getElementById('statusRoot'), a = KM.app(), u = KM.user();
+        if (!u) return;
+        if (!a) {
+            root.innerHTML = '<section class="card applicant"><h3>' + KM.esc(KM.fullName(u)) + '</h3>' +
+                '<p>ยังไม่มีใบสมัคร <a href="admission1.html" style="color:var(--red)">เริ่มกรอกใบสมัคร</a></p></section>';
+            return;
+        }
+        var paid = a.pay.status === 'paid', f = a.form;
+        function step(cls, title, sub) {
+            return '<div class="step ' + cls + '"><span class="step-icon">' +
+                (cls === 'done' ? '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : '') +
+                '</span><span class="step-text"><b>' + title + '</b><small>' + sub + '</small></span></div>';
+        }
+        var steps =
+            step('done', 'ยื่นใบสมัคร', KM.fmtDate(a.submittedAt)) +
+            '<span class="step-line on"></span>' +
+            step(paid ? 'done' : 'doing', 'ชำระเงินค่าสมัคร', paid ? KM.fmtDate(a.pay.paidAt) : 'รอชำระเงิน (ภายใน ' + KM.fmtDate(KM.deadline(a)) + ')') +
+            '<span class="step-line' + (paid ? ' on' : '') + '"></span>' +
+            step(paid ? 'doing' : 'wait', 'ตรวจสอบเอกสาร', paid ? 'อยู่ระหว่างตรวจสอบ' : 'รอดำเนินการ') +
+            '<span class="step-line"></span>' +
+            step('wait', 'ประกาศผลสัมภาษณ์', 'ตามประกาศของโครงการ');
+
+        var docs = KM.DOCS.map(function (d) {
+            var up = a.docs[d[0]];
+            var st = up ? (paid ? 'อัปโหลดแล้ว · รอเจ้าหน้าที่ตรวจสอบ' : 'อัปโหลดแล้ว · รอชำระเงินก่อนตรวจสอบ') : 'ไม่ได้แนบ (ไม่บังคับ)';
+            return '<li class="check-item"><span class="check-name">' + d[1] + '</span><span class="check-status">' + st +
+                '</span><button type="button" class="btn-view" data-doc="' + d[0] + '"' + (up ? '' : ' disabled') + '>ดูเอกสาร</button></li>';
+        }).join('');
+
+        var rows = [
+            ['เลขที่ใบสมัคร', a.no], ['เลขประจำตัวประชาชน', a.id], ['ชื่อ-นามสกุล', KM.fullName(u)],
+            ['วิทยาเขตที่สมัคร', f.campus], ['คณะ / วิทยาลัย', f.faculty], ['สาขาวิชา', f.program], ['โครงการ', f.project],
+            ['เอกสารที่อัปโหลด', Object.keys(a.docs).length + ' รายการ'],
+            ['ค่าสมัคร', KM.baht(a.pay.amount)],
+            ['สถานะการชำระเงิน', paid ? 'ชำระแล้ว · ' + KM.fmtDate(a.pay.paidAt, true) + ' · อ้างอิง ' + a.pay.ref : 'ยังไม่ชำระ · กำหนดชำระภายใน ' + KM.fmtDate(KM.deadline(a))]
+        ].map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + KM.esc(r[1]) + '</dd>'; }).join('');
+
+        root.innerHTML =
+            '<section class="card applicant"><h3>' + KM.esc(KM.fullName(u)) + '</h3><p>หลักสูตรที่สมัคร: ' + KM.esc(f.faculty) + ' สาขาวิชา' + KM.esc(f.program) + '</p></section>' +
+            '<section class="card"><h3 class="card-title">ความคืบหน้าขั้นตอนการตรวจสอบ</h3><div class="stepper">' + steps + '</div></section>' +
+            '<section class="card"><h3 class="card-title">รายการตรวจสอบหลักฐานเอกสารแนบ</h3><ul class="check-list">' + docs + '</ul></section>' +
+            '<section class="card receipt"><h3 class="card-title">ใบหลักฐานการรับสมัครเข้าศึกษา</h3>' +
+            '<p style="font-size:.78rem;color:#666;margin:-.6rem 0 1rem">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ (มจพ.) · ปีการศึกษา 2570</p><dl>' + rows + '</dl>' +
+            '<div class="rbtn">' + (paid ? '' : '<a href="payment.html" class="summit-login btn-pay" style="display:inline-flex;align-items:center;height:2.4rem;padding:0 1.5rem;border-radius:999px;font-size:.82rem;font-weight:500">ชำระค่าสมัคร</a>') +
+            '<button type="button" class="btn-view" id="printBtn">พิมพ์ใบหลักฐาน</button></div>' +
+            '<p class="pay-note" style="margin-top:1rem"><b>โปรดทราบ:</b> กรุณาตรวจสอบวันสอบสัมภาษณ์ หรือกำหนดการรายงานตัวที่หน้า <a href="schedule.html" style="color:var(--red)">กำหนดการรับสมัคร</a> อย่างสม่ำเสมอ</p></section>';
+
+        root.addEventListener('click', function (e) {
+            var b = e.target.closest('[data-doc]'); if (b) KM.openDoc(b.dataset.doc);
+            if (e.target.id === 'printBtn') window.print();
+        });
+    })();
+    </script>
+</body>
+</html>
